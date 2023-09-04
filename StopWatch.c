@@ -23,7 +23,7 @@ unsigned int g_tick = 0;
 void Timer1_Init_CTC_Mode()
 {
 	TIMSK|=(1<<OCIE1A);
-	TCCR1A = 0;    // Set Timer initial value to 0
+	TCNT1 = 0; //timer initial value
 	OCR1A  = COMP; // Set Compare Value
 	TCCR1B |= (1<<WGM12)| (1<<CS12) | (1<<CS10);
 }
@@ -84,11 +84,11 @@ int main(void)
 
 
 	while(1)
-    {
+	{
 		// Representing the ticks into H:Min:Sec
-    	h=g_tick/3600;
-    	min=(g_tick/60)%60;
-    	sec=g_tick%60;
+		h=g_tick/3600;
+		min=(g_tick/60)%60;
+		sec=g_tick%60;
 
 		PORTA &= (0xC0);
 		PORTA |= (1<<0) ;
@@ -120,5 +120,5 @@ int main(void)
 		PORTC &= (0xF0);
 		PORTC|= (h/10);
 		_delay_us(d);
-    }
+	}
 }
